@@ -3,9 +3,7 @@ import React, { useReducer, createContext } from "react";
 export const UserStore = createContext();
 
 const initialValues = {
-  currentUser: {
     tickets: [],
-  },
 };
 
 const reducer = (state, action) => {
@@ -13,7 +11,7 @@ const reducer = (state, action) => {
     case "ADD_TICKET":
       return {
         ...state,
-        tickets:[...action.payload,...tickets]
+        tickets: [{...action.payload}, ...state.tickets]
       };
   }
 };

@@ -4,10 +4,6 @@ export const MapDtoToTicketEntity = (dto) => {
     name: dto.name,
     email: dto.email,
     message: dto.message,
-    dateCreated: new Date(dto.publishedAt)
-    .toISOString()
-    .slice(0, 19)
-    .replace(/-/g, "/")
-    .replace("T", " ")
+    dateCreated: dto.dateCreated
   };
 };

@@ -2,35 +2,35 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TicketSchema = new Schema({
-  name: {
+  Name: {
     type: String,
     required: true,
     trim: true,
   },
-  email: {
+  Email: {
     type: String,
     required: true,
     trim: true,
   },
-  subscribed: {
+  Subscribed: {
     type: Boolean,
     required: true,
     trim: true,
   },
-  message: {
+  Message: {
     type: String,
     required: true,
     trim: true,
     unique: true,
   },
-  id: {
+  Id: {
     type: Number,
     required: false,
     default: undefined,
   },
-  dateCreated: {
-    type: Date,
-    default: Date.now,
+  DateCreated: {
+    type: String,
+    default: undefined
   },
 });
 

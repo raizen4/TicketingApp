@@ -3,14 +3,11 @@ import * as Helper from "./helper";
 
 export const GetLatestTickets = async () => {
   try {
-    const res = await Axios.get(
-      ` https://newsapi.org/v2/top-headlines?country=gb&apiKey=d694359125554e2ea00bbb5914d48d3f`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await Axios.get(` http://localhost:5000/tickets/GetTickets`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     const formattedArray = res.data.tickets.map((ticketDtos) => {
       return Helper.MapDtoToTicketEntity(ticketDtos);
@@ -25,21 +22,21 @@ export const GetLatestTickets = async () => {
 
 export const SaveTicket = async (ticket) => {
   try {
-    const publicationsToGetNewsFrom = ticket.toString();
+    const ticketJsoned = JSON.stringify(ticket);
     const res = await Axios.post(
-      ` https://newsapi.org/v2/top-headlines?sources=${publicationsToGetNewsFrom}&apiKey=d694359125554e2ea00bbb5914d48d3f`,
+      `http://localhost:5000/tickets/AddTicket`,
+      {
+        ticketJsoned,
+      },
       {
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-
-    const formattedArray = res.data.articles.map((articleDto) => {
-      return Helper.MapDtoToNewsEntity(articleDto);
-    });
-
-    return formattedArray;
+    if (res.status !== 200) return false;
+    
+    return res;
   } catch (error) {
     console.error(error);
     throw new Error(`Unable to POST new ticket`);

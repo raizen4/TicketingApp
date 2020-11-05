@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import makeStyles from "@material-ui/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
 import Fade from "@material-ui/core/Fade";
@@ -8,6 +8,7 @@ import Header from "../../Organisms/HeaderComponent/index";
 import Footer from "../../Organisms/FooterComponent/index";
 import FormComponent from "../../Organisms/FormComponent/index";
 import TicketsHistory from "../../Organisms/TicketsHistoryComponent/index";
+import { UserStore } from "../../../Stores/index";
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles({});
   const tickets = [];
+  const [state, dispatch] = useContext(UserStore);
 
   for (let x = 1; x < 100; x++) {
     tickets.push({
@@ -61,12 +63,24 @@ const App = () => {
       name: values.name,
       email: values.email,
       message: values.message,
-      dateCreated: values.dateCreated,
-      subscribed:values.subscribed,
+      dateCreated: new Date(Date.now())
+      .toISOString()
+      .slice(0, 19)
+      .replace(/-/g, "/")
+      .replace("T", " "),
+      subscribed: values.subscribed,
       id: Math.floor(Math.random() * 10000) + 1000,
     };
+    dispatch({
+      type: "ADD_TICKET",
+      payload: newTicket
+    });
     console.log(newTicket);
   };
+
+  useEffect(() => {
+    
+  }, [state.tickets]);
 
   return (
     <Fade in={true}>
@@ -80,7 +94,7 @@ const App = () => {
               <FormComponent submitForm={SubmitTicket} />
             </Grid>
             <Grid item xs={4}>
-              <TicketsHistory tickets={tickets}></TicketsHistory>
+              <TicketsHistory tickets={state.tickets}></TicketsHistory>
             </Grid>
           </Grid>
         </Grid>

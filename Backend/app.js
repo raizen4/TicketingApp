@@ -2,7 +2,7 @@ const restify = require('restify');
 const router = new (require('restify-router')).Router();
 const cors = require('cors');
 require('./DbSchemas/DbInit');
-require('./DbSchemas/TicketSchema');
+require('./DbSchemas/ticketSchema');
 
 const port = 5000;
 const server = restify.createServer({
