@@ -1,5 +1,7 @@
 # Inquiring App
 ## Please see the included videos in case cors produces issues, this happened on my machine and unfortunately I couldn't make it work in time but I have made videos showing both front-end and back-end working 
+
+### The app uses an actual mongo database that has been hosted in a sandbox environment.
 Inquire app for one of the code challenges (Tasty Treats)
 
 
