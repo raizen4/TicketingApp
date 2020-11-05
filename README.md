@@ -4,6 +4,7 @@
 ### The app uses an actual mongo database that has been hosted in a sandbox environment.
 Inquire app for one of the code challenges (Tasty Treats)
 
+Please use npm install in both projects first.
 
 Please start the node js backend using "npm start" . Then start the frontend using the same command.
 The front-end works without the backend in case cors issue appear but on request I can show it working without any issues.
