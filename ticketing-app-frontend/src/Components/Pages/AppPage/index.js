@@ -44,52 +44,48 @@ const App = () => {
   const tickets = [];
   const [state, dispatch] = useContext(UserStore);
 
-  const SubmitTicket = async (values) => {
+  const SubmitTicket = async (values, {resetForm}) => {
     const newTicket = {
       name: values.name,
       email: values.email,
       message: values.message,
       dateCreated: new Date(Date.now())
-      .toISOString()
-      .slice(0, 19)
-      .replace(/-/g, "/")
-      .replace("T", " "),
+        .toISOString()
+        .slice(0, 19)
+        .replace(/-/g, "/")
+        .replace("T", " "),
       subscribed: values.subscribed,
       id: Math.floor(Math.random() * 10000) + 1000,
     };
-    try{
-      var saved = await Api.SaveTicket(newTicket);
-      if(saved){
-        dispatch({
-          type: "ADD_TICKET",
-          payload: newTicket
-        });
-      }
-    }catch(err){
+    dispatch({
+      type: "ADD_TICKET",
+      payload: newTicket,
+    });
+    try {
+      await Api.SaveTicket(newTicket);
+    } catch (err) {
       console.log(err);
     }
+    resetForm();
   };
 
-  useEffect(() => {
-    
-  }, [state.tickets]);
+  useEffect(() => {}, [state.tickets]);
 
   useEffect(() => {
     async function fetchData() {
-      try{
-        var posts= await Api.GetLatestTickets();
-        posts.forEach(post=>{
+      try {
+        var posts = await Api.GetLatestTickets();
+        posts.forEach((post) => {
           dispatch({
             type: "ADD_TICKET",
-            payload: post
+            payload: post,
           });
-        })
-      }catch(err){
-        console.log(err)
+        });
+      } catch (err) {
+        console.log(err);
       }
     }
     fetchData();
-   
   }, []);
 
   return (

@@ -71,12 +71,15 @@ const SingleSignUp = ({ submitForm }) => {
       <Formik
         initialValues={initialValues}
         validationSchema={formValidationSchema}
-        onSubmit={async(values) => await submitForm(values)}
+        onSubmit={async (values, resetForm) =>
+          await submitForm(values, resetForm)
+        }
       >
         {({
           handleSubmit,
           handleChange,
           handleBlur,
+          resetForm,
           values,
           touched,
           errors,
@@ -166,7 +169,7 @@ const SingleSignUp = ({ submitForm }) => {
                   <Button
                     style={{ width: "100%" }}
                     variant="outlined"
-                    onClick={handleSubmit}
+                    onClick={() => handleSubmit(values, resetForm)}
                   >
                     Submit ticket
                   </Button>

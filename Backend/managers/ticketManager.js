@@ -18,7 +18,7 @@ async function AddTicket(newTicketToAdd) {
 
 async function GetTickets() {
   try {
-    const result = await Ticket.find().sort({DateCreated:-1});
+    const result = await Ticket.find({}).sort({ DateCreated: -1 });
     if (result != null) {
       return result;
     }
