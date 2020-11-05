@@ -1,4 +1,4 @@
-# TicketingApp
+# Inquiring App
 Inquire app for one of the code challenges (Tasty Treats)
 
 
