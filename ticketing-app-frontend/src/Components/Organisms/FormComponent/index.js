@@ -105,7 +105,7 @@ const SingleSignUp = ({ submitForm }) => {
                     style={{ width: "100%" }}
                     variant="h3"
                   >
-                    Inquery form submission
+                    Inquiry form submission
                   </Typography>
                 </Grid>
 
