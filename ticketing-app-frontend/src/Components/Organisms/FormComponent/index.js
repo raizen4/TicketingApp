@@ -53,7 +53,6 @@ const GreenCheckbox = withStyles({
 
 const SingleSignUp = ({ submitForm }) => {
   const classes = useStyles({});
-  const [errorDialog, setErrorDialog] = useState(false);
 
   let formValidationSchema = yup.object().shape({
     name: yup.string().required().min(3),
@@ -67,24 +66,12 @@ const SingleSignUp = ({ submitForm }) => {
     subscribed: false,
   };
 
-  const handleClose = () => {
-    setErrorDialog(false);
-  };
-
   return (
     <>
-      {
-        <SingleActionGeneralDialog
-          title="Error"
-          message="Please complete all relevant fields"
-          isOpen={errorDialog}
-          handleClose={handleClose}
-        />
-      }
       <Formik
         initialValues={initialValues}
         validationSchema={formValidationSchema}
-        onSubmit={(values) => submitForm(values)}
+        onSubmit={async(values) => await submitForm(values)}
       >
         {({
           handleSubmit,
@@ -115,7 +102,7 @@ const SingleSignUp = ({ submitForm }) => {
                     style={{ width: "100%" }}
                     variant="h3"
                   >
-                    Ticket form submission
+                    Inquery form submission
                   </Typography>
                 </Grid>
 

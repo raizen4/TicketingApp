@@ -9,6 +9,7 @@ import Footer from "../../Organisms/FooterComponent/index";
 import FormComponent from "../../Organisms/FormComponent/index";
 import TicketsHistory from "../../Organisms/TicketsHistoryComponent/index";
 import { UserStore } from "../../../Stores/index";
+import * as Api from "../../../Services/TicketApi/index";
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
@@ -43,22 +44,7 @@ const App = () => {
   const tickets = [];
   const [state, dispatch] = useContext(UserStore);
 
-  for (let x = 1; x < 100; x++) {
-    tickets.push({
-      name: "bogdan",
-      email: "bogdan@yahoo.com",
-      message: `test Message jsjfkhfhsdljkfdsflhdsfdshfdskfdasfsad;fdasfg;adsfadsfjgsdfjgkjdfskfkdjsgsjdfgdsfkjgkafds;jafds;jfd;sakhj;dhjfldshfdslahdsahadflhads;hldfsl;dhsfdhl;aalsdf;hashd;f${x}`,
-      dateCreated: new Date()
-        .toISOString()
-        .slice(0, 19)
-        .replace(/-/g, "/")
-        .replace("T", " "),
-      subscribed: false,
-      id: Math.floor(Math.random() * 10000) + 1000,
-    });
-  }
-
-  const SubmitTicket = (values) => {
+  const SubmitTicket = async (values) => {
     const newTicket = {
       name: values.name,
       email: values.email,
@@ -71,16 +57,40 @@ const App = () => {
       subscribed: values.subscribed,
       id: Math.floor(Math.random() * 10000) + 1000,
     };
-    dispatch({
-      type: "ADD_TICKET",
-      payload: newTicket
-    });
-    console.log(newTicket);
+    try{
+      var saved = await Api.SaveTicket(newTicket);
+      if(saved){
+        dispatch({
+          type: "ADD_TICKET",
+          payload: newTicket
+        });
+      }
+    }catch(err){
+      console.log(err);
+    }
   };
 
   useEffect(() => {
     
   }, [state.tickets]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try{
+        var posts= await Api.GetLatestTickets();
+        posts.forEach(post=>{
+          dispatch({
+            type: "ADD_TICKET",
+            payload: post
+          });
+        })
+      }catch(err){
+        console.log(err)
+      }
+    }
+    fetchData();
+   
+  }, []);
 
   return (
     <Fade in={true}>

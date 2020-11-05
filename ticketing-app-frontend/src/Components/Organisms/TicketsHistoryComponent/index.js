@@ -51,7 +51,7 @@ const TicketsHistory = ({ tickets }) => {
             style={{ width: "100%" }}
             variant="h3"
           >
-            Ticket History
+            Inquery History
           </Typography>
         </Grid>
         <Grid item xs={12}>
