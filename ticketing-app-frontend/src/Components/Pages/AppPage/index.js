@@ -75,6 +75,7 @@ const App = () => {
     async function fetchData() {
       try {
         var posts = await Api.GetLatestTickets();
+        console.log(posts);
         posts.forEach((post) => {
           dispatch({
             type: "ADD_TICKET",

@@ -11,7 +11,7 @@ const reducer = (state, action) => {
     case "ADD_TICKET":
       return {
         ...state,
-        tickets: [{...action.payload}, ...state.tickets]
+        tickets: [ ...state.tickets,{...action.payload},]
       };
   }
 };
