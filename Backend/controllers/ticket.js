@@ -4,14 +4,15 @@ const ticketManager = require("../managers/ticketManager");
 const router = new NewRouter();
 
 router.post("/AddTicket", async (req, res) => {
-  console.log(req.body);
+  const parsedJson = JSON.parse(req.body.newTicket);
+  console.log(parsedJson);
   const ticket = {
-    Name: req.body.newTicket.name,
-    Email: req.body.newTicket.email,
-    Subscribed: req.body.newTicket.subscribed,
-    Id: req.body.newTicket.id,
-    Message: req.body.newTicket.message,
-    DateCreated:req.body.newTicket.dateCreated
+    Name: parsedJson.name,
+    Email: parsedJson.email,
+    Subscribed: parsedJson.subscribed,
+    Id: parsedJson.id,
+    Message: parsedJson.message,
+    DateCreated: parsedJson.dateCreated,
   };
 
   try {
@@ -21,7 +22,6 @@ router.post("/AddTicket", async (req, res) => {
     res.send(err);
   }
 });
-
 
 router.get("/GetTickets", async (req, res) => {
   try {

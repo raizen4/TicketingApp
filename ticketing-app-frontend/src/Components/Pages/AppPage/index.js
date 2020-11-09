@@ -57,12 +57,9 @@ const App = () => {
       subscribed: values.subscribed,
       id: Math.floor(Math.random() * 10000) + 1000,
     };
-    dispatch({
-      type: "ADD_TICKET",
-      payload: newTicket,
-    });
     try {
       await Api.SaveTicket(newTicket);
+      await FetchData();
     } catch (err) {
       console.log(err);
     }
@@ -71,22 +68,22 @@ const App = () => {
 
   useEffect(() => {}, [state.tickets]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        var posts = await Api.GetLatestTickets();
-        console.log(posts);
-        posts.forEach((post) => {
-          dispatch({
-            type: "ADD_TICKET",
-            payload: post,
-          });
+  async function FetchData() {
+    try {
+      var posts = await Api.GetLatestTickets();
+      state.tickets=[];
+      posts.forEach((post) => {
+        dispatch({
+          type: "ADD_TICKET",
+          payload: post,
         });
-      } catch (err) {
-        console.log(err);
-      }
+      });
+    } catch (err) {
+      console.log(err);
     }
-    fetchData();
+  }
+  useEffect(() => {
+    FetchData();
   }, []);
 
   return (

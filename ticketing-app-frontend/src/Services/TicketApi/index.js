@@ -8,7 +8,6 @@ export const GetLatestTickets = async () => {
         "Content-Type": "application/json",
       },
     });
-    console.log(res);
     const formattedArray = res.data.map((ticketDtos) => {
       return Helper.MapDtoToTicketEntity(ticketDtos);
     });
