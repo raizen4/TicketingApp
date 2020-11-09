@@ -8,8 +8,8 @@ export const GetLatestTickets = async () => {
         "Content-Type": "application/json",
       },
     });
-
-    const formattedArray = res.data.tickets.map((ticketDtos) => {
+    console.log(res);
+    const formattedArray = res.data.map((ticketDtos) => {
       return Helper.MapDtoToTicketEntity(ticketDtos);
     });
 
@@ -22,11 +22,11 @@ export const GetLatestTickets = async () => {
 
 export const SaveTicket = async (ticket) => {
   try {
-    const ticketJsoned = JSON.stringify(ticket);
+    const newTicket = JSON.stringify(ticket);
     const res = await Axios.post(
       `http://localhost:5000/tickets/AddTicket`,
       {
-        ticketJsoned,
+        newTicket,
       },
       {
         headers: {

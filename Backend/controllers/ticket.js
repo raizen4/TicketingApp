@@ -6,12 +6,12 @@ const router = new NewRouter();
 router.post("/AddTicket", async (req, res) => {
   console.log(req.body);
   const ticket = {
-    Name: req.body.name,
-    Email: req.body.email,
-    Subscribed: req.body.subscribed,
-    Id: req.body.id,
-    Message: req.body.message,
-    DateCreated:req.body.dateCreated
+    Name: req.body.newTicket.name,
+    Email: req.body.newTicket.email,
+    Subscribed: req.body.newTicket.subscribed,
+    Id: req.body.newTicket.id,
+    Message: req.body.newTicket.message,
+    DateCreated:req.body.newTicket.dateCreated
   };
 
   try {

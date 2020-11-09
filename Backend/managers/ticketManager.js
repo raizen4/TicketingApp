@@ -2,6 +2,7 @@ require("mongoose");
 const Ticket = require("../DbSchemas/ticketSchema");
 
 async function AddTicket(newTicketToAdd) {
+  console.log(newTicketToAdd)
   const newTicket = new Ticket(newTicketToAdd);
   try {
     const responseFromDb = await newTicket.save();
